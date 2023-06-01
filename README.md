@@ -5,4 +5,4 @@ Designed using the MVVM pattern and written in C# and XML.
 
 Access the Web Api: https://github.com/khalilpyh/EsportsManagementAPI
 
-# Tools: .NET MAUI, XML
+Tools: .NET MAUI, XML
