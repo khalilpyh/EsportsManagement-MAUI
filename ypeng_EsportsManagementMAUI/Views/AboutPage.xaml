@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ypeng_EsportsManagementMAUI.Views.AboutPage"
+             Title="About"
+             BackgroundImageSource ="controller.jpg">
+
+    <VerticalStackLayout>
+        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*" Padding="10" RowSpacing="10" ColumnSpacing="10">
+
+            <Label Text="App Info" FontSize="30" FontAttributes="Bold" Margin="0,10,0,10" Grid.Row="0" Grid.ColumnSpan="3" TextColor="#fe7f2d" HorizontalTextAlignment="Center"/>
+
+            <Frame CornerRadius="10" BorderColor="Transparent" BackgroundColor="#fe7f2d" Margin="15,5" Padding="15,10,0,10" Grid.Row="1" Grid.ColumnSpan="3" Opacity="0.8">
+                <StackLayout Orientation="Vertical" Margin="5,10,0,10" Padding="0,0,4,0" >
+                    <Grid ColumnSpacing="10" RowSpacing="30" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Created By :" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="Yuhao Peng" Grid.Row="0" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                        <Label Text="Student ID :" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="4192614" Grid.Row="1" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                        <Label Text="Email :" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="ypeng2@ncstudents.niagaracollege.ca" Grid.Row="2" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                        <Label Text="Date :" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="2023-04-05" Grid.Row="3" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                        <Label Text="Course :" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="PROG1442" Grid.Row="4" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                        <Label Text="Updated :" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" HorizontalTextAlignment="Start" TextColor="Beige"/>
+                        <Label Text="2023-04-20" Grid.Row="5" Grid.Column="1" TextColor="Beige" FontAttributes="Bold"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

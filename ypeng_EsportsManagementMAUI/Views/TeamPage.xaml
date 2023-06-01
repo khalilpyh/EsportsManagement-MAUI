@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ypeng_EsportsManagementMAUI.Views.TeamPage"
+             xmlns:viewModel="clr-namespace:ypeng_EsportsManagementMAUI.ViewModels"
+             xmlns:model="clr-namespace:ypeng_EsportsManagementMAUI.Models"           
+             x:DataType="viewModel:TeamViewModel"             
+             Title="{Binding Game.Name}"
+             BackgroundImageSource="playing.jpg" >
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" ColumnDefinitions="*,*,*" Padding="10" RowSpacing="1" ColumnSpacing="1" BackgroundColor="#50000000">
+
+            <Label Text="Game Detail" FontSize="30" FontAttributes="Bold" Margin="15,10,0,10" TextColor="White" Grid.ColumnSpan="3"/>
+
+            <Frame CornerRadius="3" BorderColor="White" BackgroundColor="Transparent" Margin="15,5" Padding="15,10,0,10" Grid.Row="1" Grid.ColumnSpan="3">
+                <StackLayout Orientation="Vertical">
+                    <Grid ColumnSpacing="10" RowSpacing="2" Margin="25,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Developer :" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Game.Developer}" Grid.Row="0" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Publisher :" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Game.Publisher}" Grid.Row="1" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Designer :" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Game.Designer}" Grid.Row="2" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Engine :" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Game.Engine}" Grid.Row="3" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Released on :" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Game.ReleaseDateFormatted}" Grid.Row="4" Grid.Column="3" TextColor="White"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Label Text="Team List" FontSize="22" FontAttributes="Bold" Margin="15,5,0,5" Grid.Row="2" TextColor="White" Grid.ColumnSpan="3"/>
+
+
+            <RefreshView Grid.Row="3" Margin="15,0,10,0" 
+                     Command="{Binding LoadTeamsCommand}" 
+                     IsRefreshing="{Binding IsRefreshing}" Grid.ColumnSpan="3">
+                <CollectionView ItemsSource="{Binding Teams}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Team">
+                            <Frame Margin="0,5" BackgroundColor="#9d4edd" BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:TeamViewModel}}, Path=NavToPlayerPageCommand }" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding Summary}" TextColor="white" FontAttributes="Bold"></Label>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <Button Text="Refresh" Command="{Binding LoadTeamsCommand }" Grid.Row="4" Margin="9" IsEnabled="{Binding IsNotLoading}" Grid.Column="2"/>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

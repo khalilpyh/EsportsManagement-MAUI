@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ypeng_EsportsManagementMAUI.Views.PlayerPage"
+             xmlns:viewModel="clr-namespace:ypeng_EsportsManagementMAUI.ViewModels"
+             xmlns:model="clr-namespace:ypeng_EsportsManagementMAUI.Models" 
+             x:DataType="viewModel:PlayerViewModel"   
+             Title="{Binding Team.Name}"
+             BackgroundImageSource="keyboard.jpg">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto,Auto" ColumnDefinitions="*,*,*" Padding="10" RowSpacing="1" ColumnSpacing="1" BackgroundColor="#30000000">
+
+            <Label Text="Team Detail" FontSize="30" FontAttributes="Bold" Margin="15,10,0,10" TextColor="White" Grid.ColumnSpan="3"/>
+
+            <Frame CornerRadius="3" BorderColor="White" BackgroundColor="Transparent" Margin="15,5" Padding="15,10,0,10" Grid.Row="1" Grid.ColumnSpan="3">
+                <StackLayout Orientation="Vertical">
+                    <Grid ColumnSpacing="10" RowSpacing="2" Margin="25,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Region :" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Team.Region}" Grid.Row="0" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Country :" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Team.Country}" Grid.Row="1" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Create on :" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Team.CreatedDateFormatted}" Grid.Row="2" Grid.Column="3" TextColor="White"/>
+                        <Label Text="Total winnings :" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" HorizontalTextAlignment="End" TextColor="White"/>
+                        <Label Text="{Binding Team.TotalWinningsFormatted}" Grid.Row="3" Grid.Column="3" TextColor="White"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Label Text="Players" FontSize="22" FontAttributes="Bold" Margin="15,5,0,5" Grid.Row="2" TextColor="White" Grid.ColumnSpan="3"/>
+
+            <VerticalStackLayout Padding="5" Grid.Row="3" Margin="15" IsVisible="{Binding AddFormVisible}" BackgroundColor="#9883e5" Grid.ColumnSpan="3">
+                <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="10" Margin="20,0,20,0" ColumnSpacing="10" >
+                    <Label Text="First Name:" VerticalOptions="Center" FontAttributes="Bold" TextColor="White"/>
+                    <Entry x:Name="txtFirstName" Placeholder="ex. John" Text="{Binding FirstName}" Grid.Column="1" TextColor="White"/>
+                    <Label Text="Last Name:" VerticalOptions="Center" Grid.Row="1" FontAttributes="Bold" TextColor="White"/>
+                    <Entry x:Name="txtLastName" Placeholder="ex. Smith" Text="{Binding LastName}" Grid.Row="1" Grid.Column="1" TextColor="White"/>
+                    <Label Text="Nick Name:" VerticalOptions="Center" Grid.Row="2" FontAttributes="Bold" TextColor="White"/>
+                    <Entry x:Name="txtNickName" Placeholder="eg: n1ck123" Text="{Binding NickName}" Grid.Row="2" Grid.Column="1" TextColor="White"/>
+                    <Label Text="DOB:" VerticalOptions="Center" Grid.Row="3" FontAttributes="Bold" TextColor="White"/>
+                    <DatePicker x:Name="dpDOB" Date="{Binding Dob}" Grid.Row="3" Grid.Column="1" TextColor="White"></DatePicker>
+                    <Label Text="Position:" VerticalOptions="Center" Grid.Row="4" FontAttributes="Bold" TextColor="White"/>
+                    <Entry x:Name="txtPosition" Placeholder="eg: Carry" Text="{Binding Position}" Grid.Row="4" Grid.Column="1" TextColor="White"/>
+                    <Label Text="Join Date:" VerticalOptions="Center" Grid.Row="5" FontAttributes="Bold" TextColor="White"/>
+                    <DatePicker x:Name="dpJoinDate" Date="{Binding JoinDate}" Grid.Row="5" Grid.Column="1" TextColor="White"></DatePicker>
+                    <Button Text="Cancel" Grid.Row="6" Grid.Column="0" Command="{Binding ResetFormCommand}" BackgroundColor="Red"/>
+                    <Button Text="Add" Grid.Row="6" Grid.Column="1" Command="{Binding AddPlayerCommand}" BackgroundColor="Green"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <RefreshView Grid.Row="4" Margin="15,0,10,0"  Command="{Binding LoadPlayersCommand}"  IsRefreshing="{Binding IsRefreshing}" Grid.ColumnSpan="3">
+                <CollectionView ItemsSource="{Binding Players}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Player">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Delete" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PlayerViewModel}}, Path=DeletePlayerCommand}"
+                                           CommandParameter="{Binding .}"></SwipeItem>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Grid Padding="0,5">
+                                    <Frame Margin="0,5" BackgroundColor="#9d4edd" BorderColor="Transparent">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:PlayerViewModel}}, Path=NavToPlayerDetailCommand }" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <Label Text="{Binding Summary}" TextColor="white" FontAttributes="Bold"></Label>
+                                    </Frame>
+                                </Grid>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <Button Text="Add New Player" Grid.Row="5" Margin="9,5" Command="{Binding DisplayAddFormCommand }" IsVisible="{Binding AddButtonEnable}" BackgroundColor="DarkOrange" Grid.Column="1"/>
+            <Button Text="Refresh" Command="{Binding LoadPlayersCommand }" Grid.Row="5" Margin="9,5" IsEnabled="{Binding IsNotLoading}" Grid.Column="2"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

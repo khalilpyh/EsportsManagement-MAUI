@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ypeng_EsportsManagementMAUI.MainPage"
+             xmlns:viewModel="clr-namespace:ypeng_EsportsManagementMAUI.ViewModels"
+             xmlns:model="clr-namespace:ypeng_EsportsManagementMAUI.Models"
+             x:DataType="viewModel:GameViewModel"
+             Title="Game"
+             BackgroundImageSource ="desk.jpg">
+ 
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*, Auto" ColumnDefinitions="*,*,*" Padding="10" RowSpacing="10" ColumnSpacing="10" BackgroundColor="#50000000">
+
+            <Label Text="Game List" FontSize="30" FontAttributes="Bold" Margin="15,10,0,10" Grid.Row="0" Grid.ColumnSpan="3" TextColor="White"/>
+
+            <RefreshView Grid.Row="1" Grid.ColumnSpan="3" Margin="15,0,10,0" Command="{Binding LoadGamesCommand}" IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView ItemsSource="{Binding Games}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Game">
+                            <Frame Margin="0,5" BackgroundColor="#9d4edd" BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:GameViewModel}}, Path=NavToTeamPageCommand }" 
+                                                          CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Label Text="{Binding Name}" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            
+            <Button Text="Refresh" Command="{Binding LoadGamesCommand }" Grid.Row="2" Grid.Column="2" Margin="0,5,15,5" IsEnabled="{Binding IsNotLoading}"/>
+
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
